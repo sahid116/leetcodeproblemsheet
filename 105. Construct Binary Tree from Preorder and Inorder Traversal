@@ -1,0 +1,21 @@
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int rootidx=0;
+          return tree(preorder,inorder,rootidx,0,inorder.size()-1);
+        
+    }
+    
+    TreeNode* tree(vector<int>&preorder,vector<int>&inorder,int& rootidx,int left,int right){
+              if(left>right) return NULL;
+          int pivot=left;
+          while(inorder[pivot]!=preorder[rootidx]) pivot++;
+         
+        TreeNode* node=new TreeNode(inorder[pivot]);
+        rootidx++;
+        node->left=tree(preorder,inorder,rootidx,left,pivot-1);
+        node->right=tree(preorder,inorder,rootidx,pivot+1,right);
+    
+    return node;
+    }
+};
